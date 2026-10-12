@@ -1,4 +1,5 @@
 """Prints the current app version"""
+import requests
 from fastapi import FastAPI
 from _version import __version__
 
@@ -18,10 +19,19 @@ def app_version():
 @app.get("/temperature")
 def avg_temperature():
     """
-    Returns the average temperateure based on all sensebox data
-    Improvements: Add parameters functionality
+    Returns the average temperature based on all sensebox data
+    Future Improvements: Add parameters functionality
     """
-    return {"Average Temperature": "Dummy Value"}
+    base_url = "https://api.opensensemap.org/boxes/"
+    boxes = ["68a93536e035980007f6036b", "689fffee29cb2f00079914d8", "689ffa2829cb2f00078f774b"]
+    temps = []
+    for box in boxes:
+        response = requests.get(base_url + box, timeout=10)
+        data = response.json()
+        temps.append(float(data["sensors"][0]["lastMeasurement"]["value"]))
+
+    avg_temp = sum(temps) / len(temps)
+    return {"Average Temperature": str(avg_temp)}
 
 if __name__ == "__main__":
     print(app_version())
