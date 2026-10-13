@@ -1,0 +1,11 @@
+__pycache__/
+**/__pycache__/
+tests/
+.pytest_cache/
+.git
+.gitignore
+.gitattributes
+.python-version
+.venv/
+README.md
+tasks.txt
