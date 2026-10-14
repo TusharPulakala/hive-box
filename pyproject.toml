@@ -1,0 +1,18 @@
+[project]
+name = "hive-box"
+version = "0.0.1"
+description = "Simple containerised app to print app version"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi[standard]>=0.142.4",
+    "httpx2>=2.13.1",
+    "pytest>=9.1.1",
+    "requests>=2.34.2",
+]
+
+[tool.fastapi]
+entrypoint = "api.main:app"
+
+[tool.pytest]
+pythonpath = ["."]

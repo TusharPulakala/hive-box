@@ -1,14 +1,18 @@
-## Hive-Box: Real World DevOps Project
+# Hive-Box: Real World DevOps Project
 
 Version: v0.0.1
 
-A simple **containerised** app with a basic functionality to print the _current version_ of the app.
+A Docker **containerised** REST api with two endpoints:-
+1. /version - returns the current app version
+2. /temperature - returns current average temperature based on real world senseBoxes reading within last 1 hour
 
 ### Features:
-1. Prints the current app version
+- Fetch real world temperature readings from around the world
+- Uses Opensense data from community developed and maintained Senseboxes
+- Containerised api for easy deployment
 
 ### Usage:
-Prerequisites: Docker
+Prerequisites: Docker ([Docker Installation](https://docs.docker.com/engine/install/))
 
 Clone this repository to your local system
 ```bash
@@ -20,18 +24,18 @@ docker build -t hive-box .
 ```
 Run the docker image
 ```bash
-docker run --rm hive-box
+docker run -d --name hive-box -p 127.0.0.1:8000:8000 hive-box
 ```
-
+Access the API docs at: http://127.0.0.1:8000/docs
 
 ### Project Structure:
 
 ```text
-root/
+/
 ├── Dockerfile
 ├── README.md
-├── _version.py
-└── main.py
+├── api/
+├── pyproject.toml
+├── tests/
+└── uv.lock
 ```
-
-
