@@ -16,3 +16,8 @@ entrypoint = "api.main:app"
 
 [tool.pytest]
 pythonpath = ["."]
+
+[dependency-groups]
+dev = [
+    "pylint>=4.1.3",
+]
