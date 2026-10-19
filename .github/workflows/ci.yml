@@ -2,6 +2,9 @@ name: CI and Testing
 
 on:
     workflow_dispatch:
+    push:
+      branches: 
+          - main
 
 env:
     python-version: "3.14"
