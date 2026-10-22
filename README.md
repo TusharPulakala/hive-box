@@ -1,7 +1,7 @@
 # Hive-Box: Real World DevOps Project
 
 Version: v0.0.1
-
+[![CI/Tests](https://github.com/TusharPulakala/hive-box/actions/workflows/ci.yml/badge.svg)](https://github.com/TusharPulakala/hive-box/actions/workflows/ci.yml) [![OSSF](https://github.com/TusharPulakala/hive-box/actions/workflows/scorecard.yml/badge.svg)](https://github.com/TusharPulakala/hive-box/actions/workflows/scorecard.yml)
 A Docker **containerised** REST api with two endpoints:-
 1. /version - returns the current app version
 2. /temperature - returns current average temperature based on real world senseBoxes reading within last 1 hour
