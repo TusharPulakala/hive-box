@@ -18,6 +18,7 @@ Clone this repository to your local system
 ```bash
 git clone https://github.com/Tusharcoder18/hive-box.git
 ```
+Rename .env.example to .env and update the box ids as required. These values can also be set as environment variables.
 Build the docker image
 ```bash
 docker build -t hive-box .

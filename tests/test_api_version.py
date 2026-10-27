@@ -11,5 +11,5 @@ def test_version_endpoint():
     Should return current api version
     """
     response = client.get("/version")
-    assert response.status_code == 200, "FastAPI Server failed due to internal error"
+    assert response.status_code == 200, "Server failed due to internal error"
     assert response.json() == {"API Version": "v0.0.1"}, "API Version is incorrect"

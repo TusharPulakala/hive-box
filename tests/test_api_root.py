@@ -11,5 +11,5 @@ def test_root_endpoint():
     Should return Hello World!
     """
     response = client.get("/")
-    assert response.status_code == 200, "FastAPI Server failed due to internal error"
+    assert response.status_code == 200, "Server failed due to internal error"
     assert response.json() == {"Body": "Hello World!"}, "Root endpoint not returning Hello World!"

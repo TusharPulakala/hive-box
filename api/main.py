@@ -1,10 +1,13 @@
 """HiveBox API Core"""
+import os
 import requests
+import dotenv
+# from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, HTTPException
 from . import __version__
 
 app = FastAPI()
-
+dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 @app.get("/")
 def hello_world():
@@ -22,10 +25,15 @@ def avg_temperature():
     Returns the average temperature based on all sensebox data
     Future Improvements: Add parameters functionality
     """
-    base_url = "https://api.opensensemap.org/boxes/"
-    boxes = ["68a93536e035980007f6036b", "689fffee29cb2f00079914d8", "689ffa2829cb2f00078f774b"]
+    debug = os.getenv("HIVEBOX_DEBUG", "False")
+    base_url = os.getenv("BASE_URL", "https://api.opensensemap.org/boxes/")
+    box_ids = os.getenv(
+        "BOX_IDS", 
+        "68a93536e035980007f6036b,689fffee29cb2f00079914d8,689ffa2829cb2f00078f774b"
+        )
+
     temps = []
-    for box in boxes:
+    for box in box_ids.split(","):
         response = requests.get(base_url + box, timeout=10)
         if response.status_code == 200:
             data = response.json()
@@ -37,7 +45,21 @@ def avg_temperature():
                 )
 
     avg_temp = sum(temps) / len(temps)
-    return {"Average Temperature": str(avg_temp)}
+    if avg_temp <= 10:
+        status = "Too Cold"
+    elif avg_temp >= 37:
+        status = "Too Hot"
+    else:
+        status = "Good"
+
+    if debug == "True":
+        print("Base Url: " + base_url)
+        print("Box Ids: " + box_ids)
+
+    return {
+        "Average Temperature": str(avg_temp), 
+        "Status": status
+        }
 
 if __name__ == "__main__":
     print(app_version())
