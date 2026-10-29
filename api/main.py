@@ -2,7 +2,6 @@
 import os
 import requests
 import dotenv
-# from dotenv import load_dotenv, find_dotenv
 from fastapi import FastAPI, HTTPException
 from . import __version__
 
