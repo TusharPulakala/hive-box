@@ -3,9 +3,12 @@ import os
 import requests
 import dotenv
 from fastapi import FastAPI, HTTPException
+from prometheus_client import make_asgi_app
 from . import __version__
 
 app = FastAPI()
+metrics_app = make_asgi_app()
+app.mount("/metrics", metrics_app)
 dotenv.load_dotenv(os.path.join(os.path.dirname(__file__), '.env'))
 
 @app.get("/")
