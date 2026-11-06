@@ -2,9 +2,10 @@
 
 Version: v0.0.1
 [![CI/Tests](https://github.com/TusharPulakala/hive-box/actions/workflows/ci.yml/badge.svg)](https://github.com/TusharPulakala/hive-box/actions/workflows/ci.yml) [![OSSF](https://github.com/TusharPulakala/hive-box/actions/workflows/scorecard.yml/badge.svg)](https://github.com/TusharPulakala/hive-box/actions/workflows/scorecard.yml)
-A Docker **containerised** REST api with two endpoints:-
+A Docker **containerised** REST api with below endpoints:-
 1. /version - returns the current app version
 2. /temperature - returns current average temperature based on real world senseBoxes reading within last 1 hour
+3. /metrics - returns default prometheus metrics
 
 ### Features:
 - Fetch real world temperature readings from around the world
@@ -12,7 +13,9 @@ A Docker **containerised** REST api with two endpoints:-
 - Containerised api for easy deployment
 
 ### Usage:
-Prerequisites: Docker ([Docker Installation](https://docs.docker.com/engine/install/))
+Prerequisites: 
+Docker ([Docker Docs](https://docs.docker.com/engine/install/))
+Prometheus ([Prometheus Docs](https://prometheus.io/docs/))
 
 Clone this repository to your local system
 ```bash
@@ -25,9 +28,13 @@ docker build -t hive-box .
 ```
 Run the docker image
 ```bash
-docker run -d --name hive-box -p 127.0.0.1:8000:8000 hive-box
+docker run -d --rm --name hive-box -p 127.0.0.1:8000:8000 hive-box
 ```
-Access the API docs at: http://127.0.0.1:8000/docs
+Access the API at: http://127.0.0.1:8000/
+Optional: Run prometheus to collect api metrics
+```bash
+prometheus --config.file=prometheus.yml
+```
 
 ### Project Structure:
 
@@ -35,8 +42,15 @@ Access the API docs at: http://127.0.0.1:8000/docs
 /
 ├── Dockerfile
 ├── README.md
-├── api/
+├── api
+│   ├── __init__.py
+│   ├── .env.example
+│   └── main.py
+├── prometheus.yml
 ├── pyproject.toml
-├── tests/
+├── tests
+│   ├── test_api_root.py
+│   ├── test_api_temperature.py
+│   └── test_api_version.py
 └── uv.lock
 ```
